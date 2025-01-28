@@ -1,6 +1,6 @@
 pipeline{
 agent any 
-{
+
 stages{
     stage('checkout'){
 
@@ -12,39 +12,38 @@ stages{
             }
         }
     }
-stage('Build'){
+    stage('Build'){
 
-    steps{
-        script
-        {
-            sh './khasim.sh'
+        steps{
+            script
+            {
+                sh "./khasim.sh"
+            }
+
         }
+    }
+    stage('test'){
 
+        steps{
+            script
+            {
+                sh 'echo "this is the test stage"'
+            }
+
+        }
+    stage('deploy'){
+
+            steps{
+                script
+                {
+                    sh 'echo "this is the deploy stage"'
+                }
+
+            }
+
+        }
     }
 }
-stage('test'){
-
-    steps{
-        script
-        {
-            sh 'echo "this is the test stage"'
-        }
-
-    }
-stage('deploy'){
-
-    steps{
-        script
-        {
-            sh 'echo "this is the deploy stage"'
-        }
-
-    }
-
-}
-}
-}
 }
 
 
-}
