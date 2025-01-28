@@ -31,6 +31,7 @@ stages{
             }
 
         }
+    }
     stage('deploy'){
 
             steps{
@@ -44,6 +45,6 @@ stages{
         }
     }
 }
-}
+
 
 
