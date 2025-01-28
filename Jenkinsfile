@@ -1,6 +1,10 @@
 pipeline{
 agent any 
-
+    parameters {
+  
+        string(name: 'Name', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
+    }
+  
 stages{
     stage('checkout'){
 
@@ -17,7 +21,10 @@ stages{
         steps{
             script
             {
-                sh "./khasim.sh"
+                sh """
+                chmod +x khasim.sh
+                ./khasim.sh ${Name}
+                """
             }
 
         }
