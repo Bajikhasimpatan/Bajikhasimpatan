@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        AWS_REGION = 'us-east-1'         // Your AWS region
-        S3_BUCKET = 'khasim.p'     // Your S3 bucket name
-        MAVEN_HOME = tool name: 'Maven', type: 'Maven'  // Maven installation in Jenkins
+        AWS_REGION = 'us-east-1'  // Your AWS region
+        S3_BUCKET = 'khasim.p'    // Your S3 bucket name
+        MAVEN_HOME = '/usr/share/maven'  // Maven installation in Jenkins
     }
 
     stages {
@@ -23,7 +23,6 @@ pipeline {
             }
         }
 
-         
         stage('Upload to S3') {
             steps {
                 script {
@@ -37,7 +36,6 @@ pipeline {
                 }
             }
         }
-
     }
 
     post {
