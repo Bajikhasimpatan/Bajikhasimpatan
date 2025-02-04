@@ -1,0 +1,48 @@
+pipeline {
+    agent any
+
+    environment {
+        AWS_REGION = 'us-east-1'         // Your AWS region
+        S3_BUCKET = 'khasim.p'     // Your S3 bucket name
+        AWS_ACCESS_KEY_ID = credentials('aws_access_key')  // AWS Access Key ID from Jenkins credentials store
+        AWS_SECRET_ACCESS_KEY = credentials('aws_secret_key') // AWS Secret Access Key from Jenkins credentials store
+        MAVEN_HOME = tool name: 'Maven 3', type: 'Maven'  // Maven installation in Jenkins
+    }
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git 'https://github.com/spring-projects/spring-petclinic.git'
+            }
+        }
+
+        stage('Build Project') {
+            steps {
+                script {
+                    // Run Maven build (this could be 'mvn clean install' or 'mvn package' depending on your setup)
+                    sh "'${MAVEN_HOME}/bin/mvn' clean package"
+                }
+            }
+        }
+
+         
+        stage('Upload to S3') {
+            steps {
+                script {
+                    // Use AWS CLI to upload the JAR file to S3
+                    def jarFile = findFiles(glob: 'target/*.jar')[0].path
+                    sh "aws s3 cp ${jarFile} s3://${S3_BUCKET}/$(basename ${jarFile}) --region ${AWS_REGION}"
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Build and S3 upload successful!'
+        }
+        failure {
+            echo 'Build or S3 upload failed.'
+        }
+    }
+}
