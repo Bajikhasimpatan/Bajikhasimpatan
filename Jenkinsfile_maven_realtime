@@ -4,8 +4,6 @@ pipeline {
     environment {
         AWS_REGION = 'us-east-1'         // Your AWS region
         S3_BUCKET = 'khasim.p'     // Your S3 bucket name
-        AWS_ACCESS_KEY_ID = credentials('aws_access_key')  // AWS Access Key ID from Jenkins credentials store
-        AWS_SECRET_ACCESS_KEY = credentials('aws_secret_key') // AWS Secret Access Key from Jenkins credentials store
         MAVEN_HOME = tool name: 'Maven 3', type: 'Maven'  // Maven installation in Jenkins
     }
 
