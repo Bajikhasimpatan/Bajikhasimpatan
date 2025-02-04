@@ -4,7 +4,7 @@ pipeline {
     environment {
         AWS_REGION = 'us-east-1'         // Your AWS region
         S3_BUCKET = 'khasim.p'     // Your S3 bucket name
-        MAVEN_HOME = tool name: 'Maven 3', type: 'Maven'  // Maven installation in Jenkins
+        MAVEN_HOME = tool name: 'Maven', type: 'Maven'  // Maven installation in Jenkins
     }
 
     stages {
