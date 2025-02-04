@@ -31,7 +31,9 @@ pipeline {
                 script {
                     // Use AWS CLI to upload the JAR file to S3
                     def jarFile = findFiles(glob: 'target/*.jar')[0].path
-                    sh "aws s3 cp ${jarFile} s3://${S3_BUCKET}/$(basename ${jarFile}) --region ${AWS_REGION}"
+                    sh """
+                    aws s3 cp ${jarFile} s3://${S3_BUCKET}/\$(basename ${jarFile}) --region ${AWS_REGION}
+                    """
                 }
             }
         }
